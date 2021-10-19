@@ -2,35 +2,53 @@ name: Lint Code Base
 
 on:
   push:
-    branches-ignore: [ main]
+    branches-ignore: [main]
   pull_request:
     branches: [main]
-    
-    
+
 jobs:
-  build-api:
+  lint-api:
     name: Lint Api
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-api-modules
+        with:
+          path: ./api/node_modules
+          key: ${{ env.cache-name }}-${{ hashFiles('./api/yarn.lock') }}
+
       - name: Install dependencies
         working-directory: ./api
         run: yarn
+
       - name: Lint Code
         working-directory: ./api
-        run: yarn lint --max-warnings=0
-  build-front:
+        run: yarn run eslint --max-warnings=0 --ext .ts,.js .
+
+  lint-front:
     name: Lint Front
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        
+
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-front-modules
+        with:
+          path: ./api/node_modules
+          key: ${{ env.cache-name }}-${{ hashFiles('./front/yarn.lock') }}
+
       - name: Install dependencies
         working-directory: ./front
         run: yarn
+
       - name: Lint Code
         working-directory: ./front
-        run: yarn lint --max-warnings=0
+        run: yarn run eslint --max-warnings=0 --ext .js,.ts,.vue,.graphql .
