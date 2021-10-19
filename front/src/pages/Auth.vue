@@ -10,7 +10,6 @@
 import { defineComponent } from 'vue';
 export default defineComponent({
   setup() {
-    const x = 42;
     return {};
   },
 });

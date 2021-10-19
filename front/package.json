@@ -8,6 +8,7 @@
   "scripts": {
     "build": "quasar build",
     "dev": "quasar dev",
+    "check-format": "prettier --check '**/*.{js,vue,graphql}'",
     "format": "prettier --write '**/*.{js,vue,graphql}'",
     "lint": "eslint --ext .js,.ts,.vue,.graphql ./",
     "test": "echo \"No test specified\" && exit 0",
