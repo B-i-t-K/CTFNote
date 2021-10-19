@@ -20,7 +20,7 @@ jobs:
         run: yarn
       - name: Lint Code
         working-directory: ./api
-        run: yarn --lint
+        run: yarn lint
   build-front:
     name: Lint Front
     runs-on: ubuntu-latest
@@ -33,4 +33,4 @@ jobs:
         run: yarn
       - name: Lint Code
         working-directory: ./front
-        run: yarn --lint
+        run: yarn lint
