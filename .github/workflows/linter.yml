@@ -1,0 +1,36 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches-ignore: [ main]
+  pull_request:
+    branches: [main]
+    
+    
+jobs:
+  build-api:
+    name: Lint Api
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
+      - name: Install dependencies
+        working-directory: ./api
+        run: yarn
+      - name: Lint Code
+        working-directory: ./api
+        run: yarn --lint
+  build-front:
+    name: Lint Front
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
+      - name: Install dependencies
+        working-directory: ./front
+        run: yarn
+      - name: Lint Code
+        working-directory: ./front
+        run: yarn --lint
